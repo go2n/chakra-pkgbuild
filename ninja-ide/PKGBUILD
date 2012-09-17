@@ -1,0 +1,36 @@
+# Contributor: Angel Velásquez <angvp@archlinux.org>
+# Contributor: helq <linuxero789@gmail.com>
+# Contributor: Jesus Jerez <jhuss@archlinux.org.ve>
+# Contributor: DobleD <dobled@dobled.info>
+# 
+# PKGBUILD ini diambil dari Arch Linux dan di sesuaikan
+# untuk Chakra Linux
+# 
+# Maintainer: Sarwo Hadi Setyana <sh.setyana@gmail.com>
+
+pkgname=ninja-ide
+pkgver=2.1.1
+pkgrel=1
+pkgdesc="Cross-platform IDE focused on Python application development"
+arch=('any')
+url="http://ninja-ide.org/"
+license=('GPL3')
+depends=('python-distribute' 'pyqt' 'python-pyinotify')
+source=(https://github.com/downloads/$pkgname/$pkgname/$pkgname-v$pkgver.zip
+        ninja-ide.desktop)
+install=$pkgname.install
+sha256sums=('ab6ffc138647c98742dcfe3c97b1074325f31b67f6e5b0d6518a4fca3fd1721f'
+            '6cabe8ba0c1589feb4919f9de6e4b8bc0a692f5cb8c630f1e9c661aa19f22fdb')
+
+package() {
+  cd "$srcdir/$pkgname"
+
+  python2 setup.py install --root="$pkgdir" -O1
+
+  install -Dm644 "$srcdir/$pkgname.desktop" \
+    "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm644 ninja_ide/img/icon.png \
+    "$pkgdir/usr/share/pixmaps/$pkgname.png"
+}
+
+# vim:set ts=2 sw=2 et:
