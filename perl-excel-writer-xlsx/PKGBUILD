@@ -1,7 +1,10 @@
 # Maintainer: Sarwo Hadi Setyana <sh.setyana@gmail.com>
+# 
+# PKGBUILD ini diambil dari AUR dan disesuaikan
+# untuk CCR
 
 pkgname='perl-excel-writer-xlsx'
-pkgver='0.55'
+pkgver='0.65'
 pkgrel='1'
 pkgdesc="Excel::Writer::XLSX - Create a new file in the Excel 2007+ XLSX format."
 arch=('any')
@@ -9,9 +12,9 @@ license=('PerlArtistic' 'GPL')
 options=('!emptydirs')
 depends=('perl' 'perl-archive-zip')
 makedepends=()
-url='http://search.cpan.org/~jmcnamara/Excel-Writer-XLSX-0.55/lib/Excel/Writer/XLSX.pm'
+url='http://search.cpan.org/~jmcnamara/Excel-Writer-XLSX-0.65/lib/Excel/Writer/XLSX.pm'
 source=("http://search.cpan.org/CPAN/authors/id/J/JM/JMCNAMARA/Excel-Writer-XLSX-${pkgver}.tar.gz")
-md5sums=('cf98bf6149de5a26b8efa4e7f0358b13')
+md5sums=('aafbbb555216759f2aec384996a070a6')
 _distdir="${srcdir}/Excel-Writer-XLSX-$pkgver"
 
 build() {
