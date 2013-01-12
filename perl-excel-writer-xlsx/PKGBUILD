@@ -4,7 +4,11 @@
 # untuk CCR
 
 pkgname='perl-excel-writer-xlsx'
+<<<<<<< HEAD
 pkgver='0.65'
+=======
+pkgver='0.59'
+>>>>>>> 1c977db9b20fb3c4193c46b4c64e209faa2d0039
 pkgrel='1'
 pkgdesc="Excel::Writer::XLSX - Create a new file in the Excel 2007+ XLSX format."
 arch=('any')
@@ -12,9 +16,15 @@ license=('PerlArtistic' 'GPL')
 options=('!emptydirs')
 depends=('perl' 'perl-archive-zip')
 makedepends=()
+<<<<<<< HEAD
 url='http://search.cpan.org/~jmcnamara/Excel-Writer-XLSX-0.65/lib/Excel/Writer/XLSX.pm'
 source=("http://search.cpan.org/CPAN/authors/id/J/JM/JMCNAMARA/Excel-Writer-XLSX-${pkgver}.tar.gz")
 md5sums=('aafbbb555216759f2aec384996a070a6')
+=======
+url='http://search.cpan.org/~jmcnamara/Excel-Writer-XLSX-0.59/lib/Excel/Writer/XLSX.pm'
+source=("http://search.cpan.org/CPAN/authors/id/J/JM/JMCNAMARA/Excel-Writer-XLSX-${pkgver}.tar.gz")
+md5sums=('87ce5b20fed69285e9e9cc611310c13a')
+>>>>>>> 1c977db9b20fb3c4193c46b4c64e209faa2d0039
 _distdir="${srcdir}/Excel-Writer-XLSX-$pkgver"
 
 build() {
