@@ -8,16 +8,16 @@
 # Maintainer: Sarwo Hadi Setyana <sh.setyana@gmail.com>
 
 pkgname=('python-pyinotify')
-pkgver=0.9.3
+pkgver=0.9.4
 pkgrel=2
 pkgdesc='Python module used for monitoring filesystems events on Linux platforms with inotify.'
 arch=('any')
 url="http://github.com/seb-m/pyinotify"
 license=('custom:MIT')
+depends=('python')
 makedepends=('python')
 source=("http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-${pkgver}.tar.gz")
-md5sums=('b922aecb0ac532cfc51ab674e5f2e94c')
-
+md5sums=('701c91854d241514ede7ffe72086566d')
 
 build() {
 
@@ -25,11 +25,9 @@ build() {
 
   python setup.py build
 
-
 }
 
 package_python-pyinotify() {
-  depends=('python')
 
   cd $srcdir/pyinotify-$pkgver
 
@@ -39,4 +37,3 @@ package_python-pyinotify() {
   install -m644 COPYING \
     ${pkgdir}/usr/share/licenses/python-pyinotify
 }
-
