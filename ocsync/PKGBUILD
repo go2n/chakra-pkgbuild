@@ -1,0 +1,35 @@
+# Maintainer: Sarwo Hadi Setyana <sh.setyana@gmail.com>
+
+pkgname=ocsync
+pkgver=0.70.4
+pkgrel=1
+pkgdesc="Lightweight utility to synchronize files between two directories on
+a system or between multiple systems."
+arch=('i686' 'x86_64')
+url="http://owncloud.org/sync-clients/"
+license=('GPL2')
+depends=('sqlite3' 'iniparser' 'neon' 'smbclient' 'libssh')
+makedepends=('cmake')
+provides=('csync' 'csync-owncloud')
+conflicts=()
+source=("http://download.owncloud.com/download/${pkgname}-${pkgver}.tar.bz2")
+md5sums=('b67a8a3a82cd3caf38d89293a0105710')
+
+build() {
+	if [[ -e ${srcdir}/${pkgname}-${pkgver}-build ]]; then
+		rm -rf ${srcdir}/${pkgname}-${pkgver}-build
+	fi
+	
+	mkdir ${srcdir}/${pkgname}-${pkgver}-build
+	cd ${srcdir}/${pkgname}-${pkgver}-build
+	
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+	      -DCMAKE_BUILD_TYPE=Debug \
+	      -DSYSCONF_INSTALL_DIR=/etc ../${pkgname}-${pkgver}
+	make
+}
+
+package() {
+	cd ${srcdir}/${pkgname}-${pkgver}-build
+	make DESTDIR=${pkgdir} install
+}
