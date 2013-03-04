@@ -1,0 +1,42 @@
+# Maintainer: Sarwo Hadi Setyana <sh.setyana@gmail.com>
+
+dl_name=mirall
+pkgname=owncloud-client
+pkgver=1.2.1
+pkgrel=1
+pkgdesc="The ownCloud client software is based on Mirall and CSync"
+arch=('i686' 'x86_64')
+url="http://owncloud.org/sync-clients/"
+license=('GPL2')
+depends=('qt' 'ocsync')
+makedepends=('cmake')
+provides=('mirall' 'owncloud-client')
+conflicts=('mirall-git')
+install=owncloud-client.install
+source=("http://download.owncloud.com/download/${dl_name}-${pkgver}.tar.bz2"
+	"${pkgname}.desktop"
+	)
+md5sums=('7a3f3d927924392cffc9bb2fbbd85d19'
+         'f4f64a9b873c87f610ed7e003fcc18d7')
+
+build() {
+	if [[ -e ${srcdir}/${dl_name}-${pkgver}-build ]]; then
+		rm -rf ${srcdir}/${dl_name}-${pkgver}-build
+	fi
+	
+	mkdir ${srcdir}/${dl_name}-${pkgver}-build
+	cd ${srcdir}/${dl_name}-${pkgver}-build
+	
+	cmake -DCMAKE_INSTALL_PREFIX=/usr \
+	      -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+	      -DCMAKE_BUILD_TYPE=Release \
+	      -DCSYNC_INCLUDE_PATH=/usr/include/ocsync \
+	      -DCMAKE_INSTALL_SYSCONFDIR=/etc/${pkgname} ../${dl_name}-${pkgver}
+	make
+}
+
+package() {
+	cd ${srcdir}/${dl_name}-${pkgver}-build
+	make DESTDIR=${pkgdir} install
+	install -Dm644 ${srcdir}/${pkgname}.desktop ${pkgdir}/usr/share/applictions/${pkgname}.desktop
+}
