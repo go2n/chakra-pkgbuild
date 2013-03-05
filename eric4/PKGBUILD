@@ -5,7 +5,7 @@
 # untuk Chakra Linux
 
 pkgname=eric4
-pkgver=4.5.8
+pkgver=4.5.9
 pkgrel=1
 pkgdesc="A full-featured Python 2.x and Ruby IDE in PyQt4"
 arch=('any')
@@ -15,16 +15,12 @@ depends=('python-qscintilla')
 conflicts=('eric<5')
 install=$pkgname.install
 source=("http://downloads.sourceforge.net/eric-ide/$pkgname-$pkgver.tar.gz"
-        "$pkgname.desktop"
-        'qtwebkit23.patch')
-md5sums=('c9fa7f08873afccb7ed51983faf778bd'
-         'bce515b66a2c63dfc76a0f92edbe2ecb'
-         'e51e04aaba7efa0365b8d94bfcfa949a')
+        "$pkgname.desktop")
+md5sums=('1973ebbaac5c625da8d2b5791f38e621'
+         'bce515b66a2c63dfc76a0f92edbe2ecb')
 
 package() {
 	cd "$srcdir/$pkgname-$pkgver"
-	
-	(cd eric && patch -Np0 -i "$srcdir/qtwebkit23.patch")
 	
 	python install.py -c -b /usr/bin -i "$pkgdir"
 
