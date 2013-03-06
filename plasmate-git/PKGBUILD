@@ -1,0 +1,43 @@
+# Maintainer: Sarwo Hadi Setyana <sh.setyana@gmail.com>
+
+pkgname=plasmate-git
+pkgver=20130306
+pkgrel=1
+pkgdesc='A small IDE taylored for development of Plasma components, such as Widgets, Runners, Dataengines.'
+arch=('i686' 'x86_64')
+url='https://projects.kde.org/projects/extragear/sdk/plasmate'
+license=('LGPL')
+depends=('kdepimlibs')
+makedepends=('cmake' 'git' 'automoc4' 'boost')
+conflicts=('plasmate')
+
+_gitroot="http://anongit.kde.org/plasmate"
+_gitname="plasmate"
+
+build() {
+	msg "Connecting to the GIT server..."
+
+	if [[ -d $srcdir/$_gitname ]]; then
+		cd $_gitname
+		git pull origin
+		msg "The local files are updated."
+	else
+		git clone $_gitroot
+	fi
+
+	msg "GIT checkout done"
+	msg "Starting make..."
+	
+	cd "${srcdir}"
+	mkdir -p build
+	cd build
+
+	cmake ../$_gitname -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` \
+		-DCMAKE_BUILD_TYPE=Release
+	make
+}
+
+package() {
+	cd ${srcdir}/build
+	make DESTDIR=${pkgdir} install
+}
