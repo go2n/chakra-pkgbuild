@@ -1,0 +1,21 @@
+pkgname=arp-scan
+pkgver=1.8.1
+pkgrel=1
+pkgdesc="A command-line tool that uses the ARP protocol to discover and fingerprint IP hosts on the local network"
+arch=('i686' 'x86_64')
+url="http://www.nta-monitor.com/tools-resources/security-tools/arp-scan"
+license=('GPL')
+depends=('libpcap')
+source=(http://www.nta-monitor.com/files/arp-scan/${pkgname}-${pkgver}.tar.gz)
+md5sums=('38db8f27fc6553a88367748ea04483d6')
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	./configure --prefix=/usr --mandir=/usr/share/man
+	make
+}
+
+package() {
+	cd "$srcdir/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
