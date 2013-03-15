@@ -5,7 +5,7 @@ pkgver=0.70.4
 pkgrel=1
 pkgdesc="Lightweight utility to synchronize files between two directories on
 a system or between multiple systems."
-arch=('i686' 'x86_64')
+arch=('x86_64')
 url="http://owncloud.org/sync-clients/"
 license=('GPL2')
 depends=('sqlite3' 'iniparser' 'neon' 'smbclient' 'libssh')
