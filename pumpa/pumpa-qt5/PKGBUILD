@@ -1,0 +1,54 @@
+# Maintainer: Sarwo Hadi Setyana <sh.setyana@gmail.com>
+
+pkgname=pumpa-qt5-git
+pkgver=20131208_f5b497c
+pkgrel=1
+pkgdesc="A simple Qt-based pump.io client."
+arch=('i686' 'x86_64')
+url="https://gitorious.org/pumpa"
+license=('GPL3')
+depends=('qjson' 'aspell')
+makedepends=('git')
+provides=('pumpa')
+install="pumpa.install"
+conflicts=('pumpa-qt4' 'pumpa-qt4-git')
+
+_gitroot="https://git.gitorious.org/pumpa/pumpa.git"
+_gitname="pumpa"
+
+pkgver() {
+        cd "${_gitname}"
+        echo "$(git log -1 --format="%cd" --date=short | tr -d '-')_$(git log -1 --format="%h")"
+}
+
+build() {
+	cd "$srcdir"
+	msg "Connecting to GIT server..."
+        
+        if [ -d $_gitname ]; then
+                cd $_gitname && git pull origin
+                msg "The local files are updated."
+                make clean
+        else
+                git clone $_gitroot $_gitname
+                cd $_gitname
+        fi
+
+	msg="GIT checkout done or server timeout."
+	msg="Starting make..."
+	
+	qmake
+	make
+}
+
+package() {
+  cd "$srcdir/$_gitname"
+
+  install -Dm755 pumpa "$pkgdir/usr/bin/pumpa"
+
+  install -Dm644 pumpa.desktop "$pkgdir/usr/share/applications/pumpa.desktop"
+
+  install -Dm644 images/pumpa.png "$pkgdir/usr/share/pixmaps/pumpa.png"
+  
+  install -Dm644 images/pumpa.png "$pkgdir/usr/share/icons/hicolor/32x32/apps/pumpa.png"
+}
