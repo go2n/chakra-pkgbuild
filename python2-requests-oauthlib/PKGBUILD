@@ -1,0 +1,30 @@
+# Maintainer: Sarwo Hadi Setyana <sh.setyana@gmail.com>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Sebastien Leduc <sebastien@sleduc.fr>
+# Contributor: Roberto Catini <roberto.catini@gmail.com>
+
+pkgname=python2-requests-oauthlib
+_pkgname=requests-oauthlib
+pkgver=0.5.0
+pkgrel=1
+pkgdesc="First-class OAuth library support for Requests"
+arch=('any')
+url="https://pypi.python.org/pypi/requests-oauthlib"
+license=('custom:ISC')
+makedepends=('python2-setuptools' 'python2-requests' 'python2-oauthlib')
+source=("https://pypi.python.org/packages/source/r/${_pkgname}/${_pkgname}-${pkgver}.tar.gz")
+md5sums=('139a17c495fb593b5842634faf72ebb0')
+
+
+build() {
+  cd "$srcdir/${_pkgname}-$pkgver"
+  python setup.py build
+}
+
+package() {
+  depends=('python2-requests' 'python2-oauthlib')
+
+  cd "$srcdir/${_pkgname}-$pkgver"
+  python2 setup.py install --root="$pkgdir/" --optimize=1
+  install -D -m644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
