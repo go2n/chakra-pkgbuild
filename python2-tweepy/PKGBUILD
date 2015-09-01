@@ -1,19 +1,23 @@
 # Maintainer: Sarwo Hadi Setyana <sh.setyana@gmail.com>
 
-pkgname=python-tweepy
-dl_name=tweepy
-pkgver=2.0
+pkgname=python2-tweepy
+pypiname=tweepy
+pkgver=3.4.0
 pkgrel=1
-pkgdesc="Twitter for Python!"
+pkgdesc="Twitter library for python"
 arch=('any')
-url="http://pypi.python.org/pypi/tweepy/"
+url="http://www.tweepy.org"
 license=('MIT')
-depends=('python-simplejson')
-source=(http://pypi.python.org/packages/source/t/$dl_name/$dl_name-$pkgver.tar.gz)
-md5sums=('58c92978aadc585dc878ff7cff8e5c90')
+depends=('python2-requests' 'python2-requests-oauthlib' 'python2-six')
+makedepends=('python2-setuptools' 'python2-pip')
+source=(http://pypi.python.org/packages/source/t/$pypiname/$pypiname-$pkgver.tar.gz)
+md5sums=('52e1210bfd8087e25a9536f76b0ae60b')
 
 build() {
-   cd "$srcdir/$dl_name-$pkgver"
-
+    cd "$srcdir/$pypiname-$pkgver"
+    python setup.py build
+}
+package() {
+   cd "$srcdir/$pypiname-$pkgver"
    python setup.py install --root="$pkgdir/" --optimize=1
 }
